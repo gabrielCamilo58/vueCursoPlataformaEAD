@@ -1,19 +1,42 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import DefaultTemplate from '@/layouts/DefaultTemplate'
+import HomeView from '@/views/home/HomeView'
+import MySupport from '@/views/supports/MySupport'
+import modulesAndLesson from '@/views/modules/modulesAndLesson';
+import loginComponent from '@/views/auth/auth.vue'
+import forgetPassword from '@/views/auth/forgetPassword'
 
 const routes = [
   {
-    path: '/',
-    name: 'home',
-    component: HomeView
+    path: '/campus',
+    component: DefaultTemplate,
+    children: [
+      {
+        path: 'modulos',
+        name: 'campus.modulos',
+        component: modulesAndLesson,
+      },
+      {
+        path: 'minhas-duvidas',
+        name: 'campus.my.supports',
+        component: MySupport
+      },
+      {
+        path: '',
+        name: 'campus.home',
+        component: HomeView
+      }
+    ]
   },
   {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
+    path: '/',
+    name: 'auth',
+    component: loginComponent
+  },
+  {
+    path:'/recuperar-senhas',
+    name: 'auth.forget',
+    component: forgetPassword
   }
 ]
 
