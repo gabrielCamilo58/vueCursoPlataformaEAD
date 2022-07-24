@@ -59,7 +59,7 @@
                 />
                 <i class="far fa-eye buttom"></i>
               </div>
-              <button class="btn primary" type="submit" @click.prevent="login" >Login</button>
+              <button class="btn primary" type="submit" @click.prevent="auth" >Login</button>
             </form>
             <span>
               <p class="fontSmall">
@@ -78,16 +78,23 @@
 </template>
 
 <script>
-import router from '@/router'
+import { useStore } from 'vuex';
 export default {
     name: 'loginComponent',
     setup(){
-        const login = () => {
-            router.push({name: 'campus.home'});
+
+        const store = useStore();
+
+        const auth = () => {
+          store.dispatch('auth', {
+            email: 'lalalau@gmail.com.br',
+            password: '12345',
+            device_name: 'authByVue3'
+          })
         }
 
         return {
-            login
+            auth,
         }
     }
 }
